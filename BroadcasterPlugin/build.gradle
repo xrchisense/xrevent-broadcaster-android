@@ -1,0 +1,61 @@
+plugins {
+    id 'com.android.library'
+}
+
+ext {
+    geckoviewChannel  = "nightly"
+    geckoviewVersion = "109.0.20221123094429"
+}
+
+android {
+    namespace 'com.xrchisense.xrevent.broadcasterplugin'
+    compileSdk 25
+
+    defaultConfig {
+        minSdk 25
+        targetSdk 25
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    compileOnly files('libs\\classes.jar')
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    //implementation "org.mozilla.geckoview:geckoview-nightly:109.0.20221123094429"
+
+   // implementation 'com.google.android.gms:play-services-fido:18.1.0'
+   // implementation 'androidx.lifecycle:lifecycle-common-java8:2.4.0'
+   // implementation 'org.yaml:snakeyaml:1.24'
+   // implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    implementation "org.mozilla.geckoview:geckoview-armeabi-v7a:80.0.20200818235255"
+    implementation 'com.android.support:support-v4:25.4.0' // Max support till API28.
+}
+
+
+
+
+
+
+
+
+
+
