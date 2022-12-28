@@ -4,7 +4,7 @@ plugins {
 
 ext {
     geckoviewChannel  = "nightly"
-    geckoviewVersion = "109.0.20221123094429"
+    geckoviewVersion = "80.0.20200818235255"
 }
 
 android {
@@ -46,7 +46,7 @@ dependencies {
    // implementation 'org.yaml:snakeyaml:1.24'
    // implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
-    implementation "org.mozilla.geckoview:geckoview-armeabi-v7a:80.0.20200818235255"
+    implementation "org.mozilla.geckoview:geckoview-arm64-v8a:80.0.20200818235255"
     implementation 'com.android.support:support-v4:25.4.0' // Max support till API28.
 }
 
