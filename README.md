@@ -13,3 +13,14 @@ The plugin source for the Unity XRevent Broadcaster
 4. Find the .aar in 'xrevent-broadcaster-android\BroadcasterPlugin\build\outputs\aar'
 5. Copy the BroadcasterPlugin-debug.aar to the Unity Project folder 'xrevent-broadcaster-unity\Assets\Plugins\Android'
 6. Copy the required dependencies also into this folder.
+
+## Use the Unity Plugin
+1. Switch the Android Project Settings to:
+- OpenGLES3
+- Color Space Linear
+- Multithreaded Rendering Un-checked
+- Minimum API Level 25
+- Scripting Backend IL2CPP
+- Api Compatilility Level .NET Standard 2.0
+
+
