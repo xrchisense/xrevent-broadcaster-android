@@ -1,3 +1,10 @@
+/**
+ * For references please look up the Khronos OpenGL ES Reference Pages at
+ * https://registry.khronos.org/OpenGL-Refpages/
+ * resprectively the Android wrapper API at
+ * https://developer.android.com/reference/android/opengl/GLES30
+ */
+
 package com.xrchisense.xrevent.broadcasterplugin;
 
 import android.opengl.GLES11Ext;
@@ -7,56 +14,56 @@ import android.util.Log;
 
 public class FBOUtils {
 
-    // 根据类型编译着色器
+    // Compile type dependent shader
     public static int compileShader(int type, String shaderCode) {
-        // 根据不同的类型创建着色器 ID
+        // Specifies the type of shader to be created. Returns ID.
         final int shaderObjectId = GLES30.glCreateShader(type);
         if (shaderObjectId == 0) {
             return 0;
         }
-        // 将着色器 ID 和着色器程序内容连接
+        // Sets the source code in shader object to the source code provided as string.
         GLES30.glShaderSource(shaderObjectId, shaderCode);
-        // 编译着色器
+        // Compile shader.
         GLES30.glCompileShader(shaderObjectId);
-        // 为验证编译结果是否失败
+        // To check compile result.
         final int[] compileStatus = new int[1];
-        // glGetShaderiv函数比较通用，在着色器阶段和 OpenGL 程序阶段都会通过它来验证结果。
+        // glGetShaderiv: More general function used to verify the result in both shader stage and OpenGL program stage。
         GLES30.glGetShaderiv(shaderObjectId, GLES30.GL_COMPILE_STATUS, compileStatus, 0);
         if (compileStatus[0] == 0) {
             log("compileShader error --> " + shaderCode);
-            // 失败则删除
+            // Delete on failure.
             GLES30.glDeleteShader(shaderObjectId);
             return 0;
         }
         return shaderObjectId;
     }
 
-    // 创建 OpenGL 程序和着色器链接
+    // Create OpenGL and link.
     public static int linkProgram(int vertexShaderId, int fragmentShaderId) {
-        // 创建 OpenGL 程序 ID
+        // Create OpenGL Program and check return ID for error.
         final int programObjectId = GLES30.glCreateProgram();
         if (programObjectId == 0) {
             return 0;
         }
-        // 链接上 顶点着色器
+        // Link vertex shader.
         GLES30.glAttachShader(programObjectId, vertexShaderId);
-        // 链接上 片段着色器
+        // Link fragment shader.
         GLES30.glAttachShader(programObjectId, fragmentShaderId);
-        // 链接着色器之后，链接 OpenGL 程序
+        // After linking the shaders, link the OpenGL program.
         GLES30.glLinkProgram(programObjectId);
-        // 验证链接结果是否失败
+        // Verify link result for error.
         final int[] linkStatus = new int[1];
         GLES30.glGetProgramiv(programObjectId, GLES30.GL_LINK_STATUS, linkStatus, 0);
         if (linkStatus[0] == 0) {
             log("linkProgram error");
-            // 失败则删除 OpenGL 程序
+            // Delete OpenGL program if failure occurs.
             GLES30.glDeleteProgram(programObjectId);
             return 0;
         }
         return programObjectId;
     }
 
-    // 链接了 OpenGL 程序后，就是验证 OpenGL 是否可用。
+    // After linking the OpenGL program，Check whether OpenGL is available。
     public static boolean validateProgram(int programObjectId) {
         GLES30.glValidateProgram(programObjectId);
         final int[] validateStatus = new int[1];
@@ -64,11 +71,11 @@ public class FBOUtils {
         return validateStatus[0] != 0;
     }
 
-    // 创建 OpenGL 程序过程
+    // Create OpenGL program.
     public static int buildProgram(String vertexShaderSource, String fragmentShaderSource) {
-        // 编译顶点着色器
+        // Compile the vertex shader.
         int vertexShader = compileShader(GLES30.GL_VERTEX_SHADER, vertexShaderSource);
-        // 编译片段着色器
+        // Compile the fragment shader.
         int fragmentShader = compileShader(GLES30.GL_FRAGMENT_SHADER, fragmentShaderSource);
         int program = linkProgram(vertexShader, fragmentShader);
         boolean valid = validateProgram(program);

@@ -32,14 +32,15 @@ public class FilterFBOTexture {
                     //           "uniform samplerExternalOES s_Texture;                   \n" +
                     "uniform samplerExternalOES s_Texture;                   \n" +
                     "void main() {                                           \n" +
-                    //          "    vec4 col = texture(s_Texture, v_TexCoord);          \n" +
-                    //          "    col.rgb = col.rgb * (col.rgb * (col.rgb * 0.305306011 + 0.682171111) + 0.012522878); \n" +
-                    //          "    fragColor = col;                                    \n" +
-                    //         "    fragColor = texture(s_Texture, v_TexCoord);                                    \n" +
-                    "      fragColor = texture(s_Texture, v_TexCoord);   \n" +
+                    // Convert gamma colour space to linear colour
+                    "    vec4 col = texture(s_Texture, v_TexCoord);          \n" +
+                    "    col.rgb = col.rgb * (col.rgb * (col.rgb * 0.305306011 + 0.682171111) + 0.012522878); \n" +
+                    "    fragColor = col;                                    \n" +
+                    // "    fragColor = texture(s_Texture, v_TexCoord);         \n" +
+                    // "    fragColor = texture(s_Texture, v_TexCoord);         \n" +
                     "}                                                       \n";
 
-    // 顶点坐标
+    // Vertex coordinates
     private final float[] vertexData = {
             -1f, 1f,
             1f, 1f,
@@ -49,7 +50,7 @@ public class FilterFBOTexture {
     private final FloatBuffer vertexBuffer;
     private final int vertexVBO;
 
-    // 纹理坐标
+    // Texture coordinates
     private final float[] textureData = {
             0f, 0f,
             1f, 0f,
